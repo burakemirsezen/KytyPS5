@@ -332,7 +332,8 @@ To use the graphical launcher:
 open _Build/macos/install/KytyPS5.app  # or double-click in Finder
 ```
 
-On first launch, add one or more game folders in the global settings. The launcher searches those
+On first launch, add one or more game folders in the global settings. You can select an individual
+game directory or a parent folder containing multiple games. The launcher searches those
 folders recursively for game directories containing `eboot.bin` and ZArchive (`.zar`) game dumps
 whose archive root contains `eboot.bin`. Select a detected game and run it from the game list.
 ZArchive dumps are mounted read-only and streamed directly; they do not need to be extracted first.

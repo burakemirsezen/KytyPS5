@@ -699,24 +699,17 @@ void ConfigurationListWidget::ScanGameDirectory() {
 			continue;
 		}
 
-		scan_archives(root, root);
-		QList<QDir> pending_dirs;
-		const auto  root_subdirs =
-		    root.entryInfoList(QDir::Dirs | QDir::NoDotAndDotDot | QDir::NoSymLinks);
-		for (const auto& subdir: root_subdirs) {
-			pending_dirs.append(QDir(subdir.absoluteFilePath()));
-		}
+		QList<QDir> pending_dirs {root};
 
 		while (!pending_dirs.isEmpty()) {
 			QDir game_dir = pending_dirs.takeFirst();
 			scan_archives(game_dir, root);
 
-			if (game_dir.exists(eboot_name)) {
+			if (QFileInfo(game_dir.filePath(eboot_name)).isFile()) {
 				const QString game_path        = NormalizeGameDirectory(game_dir.absolutePath());
 				const QString legacy_game_path = root.relativeFilePath(game_dir.absolutePath());
 				add_game(game_dir.absolutePath(), game_path, legacy_game_path, game_dir.dirName(),
 				         false);
-				continue;
 			}
 
 			const auto subdirs =
